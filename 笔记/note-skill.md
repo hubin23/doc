@@ -34,5 +34,7 @@ UPDATE tablename SET column = column + addition;
 
 *git branch -r*：查看远端分支  
 
-*git checkout branchname*：切换分支到branchnam  
+*git checkout branchname*：切换分支到branchname  
+
+*git merge branchname*：合并branchname 到当前分支
 
