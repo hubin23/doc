@@ -21,7 +21,7 @@ vi ~/.bashrc 即可编辑。
 UPDATE tablename SET column = column + addition;
 
 ***
-###github操作相关命令
+### github操作相关命令
 *git pull*：拉取  
 
 *git commit .*：提交  
