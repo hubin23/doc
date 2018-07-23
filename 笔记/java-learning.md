@@ -81,8 +81,109 @@ class Outter {
     }
 }
 ```
-
-
+    内部类可以拥有private访问权限、protected访问权限、public访问权限及包访问权限。
+    比如上面的例子，如果成员内部类Inner用private修饰，则只能在外部类的内部访问，如果用public修饰，则任何地方都能访问；如果用protected修饰，则只能在同一个包下或者继承外部类的情况下访问；如果是默认访问权限，则只能在同一个包下访问。
+    这一点和外部类有一点不一样，外部类只能被public和包访问两种权限修饰。我个人是这么理解的，由于成员内部类看起来像是外部类的一个成员，所以可以像类的成员一样拥有多种权限修饰。
 ### 局部内部类
+    局部内部类是定义在一个方法或者一个作用域里面的类，它和成员内部类的区别在于局部内部类的访问仅限于方法内或者该作用域内。
+```java
+class People{
+    public People() {
+         
+    }
+}
+ 
+class Man{
+    public Man(){
+         
+    }
+     
+    public People getWoman(){
+        class Woman extends People{   //局部内部类
+            int age =0;
+        }
+        return new Woman();
+    }
+}
+```
+    注意，局部内部类就像是方法里面的一个局部变量一样，是不能有public、protected、private以及static修饰符的。
+
 ### 匿名内部类
+    匿名内部类应该是平时我们编写代码时用得最多的，在编写事件监听的代码时使用匿名内部类不但方便，而且使代码更加容易维护。下面这段代码是一段Android事件监听代码：
+```java
+scan_bt.setOnClickListener(new OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        // TODO Auto-generated method stub
+    }
+});
+         
+history_bt.setOnClickListener(new OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        // TODO Auto-generated method stub
+    }
+});
+```
+    代码中需要给按钮设置监听器对象，使用匿名内部类能够在实现父类或者接口中的方法情况下同时产生一个相应的对象，但是前提是这个父类或者接口必须先存在才能这样使用。当然像下面这种写法也是可以的，跟上面使用匿名内部类达到效果相同↓
+```java
+private void setListener()
+{
+    scan_bt.setOnClickListener(new Listener1());       
+    history_bt.setOnClickListener(new Listener2());
+}
+ 
+class Listener1 implements View.OnClickListener{
+    @Override
+    public void onClick(View v) {
+    // TODO Auto-generated method stub
+             
+    }
+}
+ 
+class Listener2 implements View.OnClickListener{
+    @Override
+    public void onClick(View v) {
+    // TODO Auto-generated method stub
+             
+    }
+}
+```
+    ↑这种写法虽然能达到一样的效果，但是既冗长又难以维护，所以一般使用匿名内部类的方法来编写事件监听代码。同样的，匿名内部类也是不能有访问修饰符和static修饰符的。
+    
+    匿名内部类是唯一一种没有构造器的类。正因为其没有构造器，所以匿名内部类的使用范围非常有限，大部分匿名内部类用于接口回调。匿名内部类在编译的时候由系统自动起名为Outter$1.class。一般来说，匿名内部类用于继承其他类或是实现接口，并不需要增加额外的方法，只是对继承方法的实现或是重写。
 ### 静态内部类
+    静态内部类也是定义在另一个类里面的类，只不过在类的前面多了一个关键字static。静态内部类是不需要依赖于外部类的，这点和类的静态成员属性有点类似，并且它不能使用外部类的非static成员变量或者方法，这点很好理解，因为在没有外部类的对象的情况下，可以创建静态内部类的对象，如果允许访问外部类的非static成员就会产生矛盾，因为外部类的非static成员必须依附于具体的对象。
+
+```java
+public class Test {
+    public static void main(String[] args)  {
+        Outter.Inner inner = new Outter.Inner();
+    }
+}
+ 
+class Outter {
+    public Outter() {
+         
+    }
+     
+    static class Inner {
+        public Inner() {
+             
+        }
+    }
+}
+```
+
+### 内部类使用场景
+    为什么在Java中需要内部类？总结一下主要有以下四点：
+    
+        1.每个内部类都能独立的继承一个接口的实现，所以无论外部类是否已经继承了某个(接口的)实现，对于内部类都没有影响。内部类使得多继承的解决方案变得完整，
+
+        2.方便将存在一定逻辑关系的类组织在一起，又可以对外界隐藏。
+
+        3.方便编写事件驱动程序
+
+        4.方便编写线程代码
+
+        个人觉得第一点是最重要的原因之一，内部类的存在使得Java的多继承机制变得更加完善。
