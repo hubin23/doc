@@ -100,3 +100,28 @@ $ chmod +x bbr.sh
 $ ./bbr.sh
 ```
 然后提示重启，按Y确认
+
+
+## 2018年9月26号
+
+打包python为可执行exe文件
+
+1：安装pyinstaller，默认为已设置好python环境变量，命令为：`pip install pyinstaller`，若未配置好python环境变量，则需要移动到python安装目录的scripts目录下，再执行安装命令
+
+2: 安装pywin32，命令：`pip install pywin32`  
+
+P.S. 查看已经安装的第三方库命令：`pip list`
+
+3: 开始打包，`pyinstaller  -F  xxx.py`，其中-F为参数，可以写多个，如`pyinstaller.py -F -w  xxx.py`
+
+P.S. 若需要修改程序图标：`pyinstaller.py -F -w -i "xxx.ico" "xxx.py"`，ico图标库：https://www.easyicon.net/
+
+|参数|含义|
+|---|---|
+|-F|指定打包后只生成一个exe格式的文件|
+|-D|–onedir 创建一个目录，包含exe文件，但会依赖很多文件（默认选项）|
+|-c|–console, –nowindowed 使用控制台，无界面(默认)|
+|-w|–windowed, –noconsole 使用窗口，无控制台|
+|-p|添加搜索路径，让其找到对应的库。|
+|-i|改变生成程序的icon图标|
+
