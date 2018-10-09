@@ -125,3 +125,24 @@ P.S. 若需要修改程序图标：`pyinstaller.py -F -w -i "xxx.ico" "xxx.py"`�
 |-p|添加搜索路径，让其找到对应的库。|
 |-i|改变生成程序的icon图标|
 
+## 2018年10月9日
+
+### 1、firewalld的基本使用
+
+启动： `systemctl start firewalld`
+
+关闭： `systemctl stop firewalld`
+
+查看状态： `systemctl status firewalld` 
+
+开机禁用  ： `systemctl disable firewalld`
+
+开机启用  ： `systemctl enable firewalld`
+
+开启一个端口：`firewall-cmd --query-port=8080/tcp`（开启8080端口）
+
+重新载入：`firewall-cmd --reload`
+
+查看是否启用：`firewall-cmd --query-port=8080/tcp`
+
+删除：`firewall-cmd --remove-port=80/tcp --permanent`
