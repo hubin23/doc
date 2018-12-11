@@ -139,7 +139,7 @@ P.S. 若需要修改程序图标：`pyinstaller.py -F -w -i "xxx.ico" "xxx.py"`�
 
 开机启用  ： `systemctl enable firewalld`
 
-开启一个端口：`firewall-cmd --query-port=8080/tcp`（开启8080端口）
+开启一个端口：`firewall-cmd --add-port=8080/tcp`（开启8080端口）
 
 重新载入：`firewall-cmd --reload`
 
